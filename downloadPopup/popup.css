@@ -1,6 +1,6 @@
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 2fr 6fr;
 }
 
 .header {
@@ -14,4 +14,8 @@
 .popup .radio-group {
     display: flex;
     gap: 10px;
+}
+
+#download-directory {
+    width: 100%;
 }

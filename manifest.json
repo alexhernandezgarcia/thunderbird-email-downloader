@@ -12,11 +12,14 @@
     "permissions": [
         "messagesRead",
         "menus",
+        "downloads",
         "storage",
         "tabs",
-        "downloads",
         "activeTab"
     ],
+	"background": {
+		"page": "background.html"
+	},
     "message_display_action": {
 		"default_popup": "downloadPopup/popup.html",
 		"default_title": "Download",

@@ -9,12 +9,23 @@
 
 <body>
     <div class="grid-container">
-        <div class="header">Subject:</div>
-        <div id="subject" class="content"></div>
-        <div class="header">From:</div>
-        <div id="from" class="content"></div>
-        <div class="header">Received-Header:</div>
-        <div id="received" class="content"></div>
+        <div class="header">Name:</div>
+        <div id="name" class="content"></div>
+
+        <div class="header">Email:</div>
+        <div id="email" class="content"></div>
+
+        <div class="header">Application type</div>
+        <div id="application-type", class="radio-group">
+            <label><input type="radio" name="option" value="internship">Internship</label>
+            <label><input type="radio" name="option" value="phd">PhD</label>
+            <label><input type="radio" name="option" value="postdoc">Postdoc</label>
+        </div>
+
+        <div class="header">Download directory:</div>
+        <div id="download-directory-content" class="content">
+            <input type="text" id="download-directory" value="/home/alex/Dropbox/prof_udem/applications">
+        </div>
     </div>
     <script type="module" src="popup.js"></script>
 </body>

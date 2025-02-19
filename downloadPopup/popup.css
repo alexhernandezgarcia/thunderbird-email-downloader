@@ -10,3 +10,8 @@
 .grid-container div {
     margin: 1ex;
 }
+
+.popup .radio-group {
+    display: flex;
+    gap: 10px;
+}

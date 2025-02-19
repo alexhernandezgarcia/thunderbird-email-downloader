@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+    "name": "Email info downloader",
+    "version": "1.0",
+    "description": "Downloads the email address, email content and attachments of an email into a specified directory of the local computer",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "alexhg@e.email",
+            "strict_min_version": "128.0"
+        }
+    },
+    "permissions": [
+        "messagesRead",
+        "menus",
+        "storage",
+        "tabs",
+        "downloads",
+        "activeTab"
+    ],
+    "message_display_action": {
+		"default_popup": "downloadPopup/popup.html",
+		"default_title": "Download",
+		"default_icon": "images/internet-32px.png"
+	},
+    "icons": {
+        "64": "images/internet.png",
+        "32": "images/internet-32px.png",
+        "16": "images/internet-16px.png"
+    }
+}

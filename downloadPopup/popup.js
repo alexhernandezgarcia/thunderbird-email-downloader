@@ -42,3 +42,20 @@ function updateDownloadDirectory() {
 function nameToDirectory(name) {
     return name.toLowerCase().replace(/\s+/g, '_');
 }
+
+// Add event listener to make directory button
+document.getElementById("makedir-button").addEventListener("click", download);
+
+async function download() {
+    console.log("Download button clicked");
+    console.log("Current directory: " + document.getElementById("download-directory").value);
+	browser.runtime.sendMessage({ action: "saveFile" })
+    .then(response => {
+        if (response.status === "success") {
+            console.log("Dummy download started!");
+        } else {
+            console.error("Error:", response.error);
+        }
+    })
+    .catch(error => console.error("Error sending message to background:", error));
+}

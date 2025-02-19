@@ -23,11 +23,15 @@ console.log("Set email");
 document.getElementById("name").textContent = authorInfo[0].name;
 console.log("Set name");
 
-// [WIP] event listener to update the download directory
+// Add event listener to application type radio button
+document.getElementById("application-type").addEventListener("change", updateDownloadDirectory);
+
+// Function to update the download directory based on radio button
 function updateDownloadDirectory() {
     console.log("Radio button clicked");
     let selectedOption = document.querySelector('input[name="option"]:checked');
+    console.log("Selected option: " + selectedOption.value);
     if (selectedOption) {
-        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications" + selectedOption.value;
+        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications/" + selectedOption.value + "/";
     }
 }

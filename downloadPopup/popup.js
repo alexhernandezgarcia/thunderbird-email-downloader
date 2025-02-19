@@ -18,10 +18,12 @@ let authorInfo = await messenger.messengerUtilities.parseMailboxString(message.a
 console.log("Got author info");
 
 // Update the HTML fields with the sender email and name.
-document.getElementById("email").textContent = authorInfo[0].email;
-console.log("Set email");
-document.getElementById("name").textContent = authorInfo[0].name;
-console.log("Set name");
+let email = authorInfo[0].email;
+document.getElementById("email").textContent = email;
+console.log("Set email: " + email);
+let name = authorInfo[0].name;
+document.getElementById("name").textContent = name;
+console.log("Set name: " + name);
 
 // Add event listener to application type radio button
 document.getElementById("application-type").addEventListener("change", updateDownloadDirectory);
@@ -32,6 +34,11 @@ function updateDownloadDirectory() {
     let selectedOption = document.querySelector('input[name="option"]:checked');
     console.log("Selected option: " + selectedOption.value);
     if (selectedOption) {
-        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications/" + selectedOption.value + "/";
+        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications/" + selectedOption.value + "/" + nameToDirectory(name);
     }
+}
+
+// Function to format the directory name given the sender's name
+function nameToDirectory(name) {
+    return name.toLowerCase().replace(/\s+/g, '_');
 }

@@ -1,5 +1,6 @@
 // Define the saveFile function
-async function zipAndDownload() {
+async function zipAndDownload(filename) {
+    console.log("zipAndDownload() · File name received: " + filename);
     try {
         // Create a Blob with some text content
         let fileContent = "Hello, Thunderbird! This is a test file.";
@@ -9,7 +10,7 @@ async function zipAndDownload() {
         // Trigger the download with the option to choose the location
         let downloadId = await browser.downloads.download({
             url: url,
-            filename: "example.txt",  // Default filename
+            filename: filename,
             saveAs: true  // This will prompt the user to choose where to save the file
         });
 
@@ -21,8 +22,9 @@ async function zipAndDownload() {
 
 // Listen for messages from content scripts
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "saveFile") {
-        saveFile().then(() => {
+    console.log("Background listener · Message received");
+    if (message.action === "zipAndDownload") {
+        zipAndDownload(message.filename).then(() => {
             sendResponse({ status: "success" });
         }).catch(error => {
             sendResponse({ status: "error", error: error.message });

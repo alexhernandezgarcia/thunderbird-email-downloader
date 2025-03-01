@@ -34,13 +34,13 @@ function updateDownloadDirectory() {
     let selectedOption = document.querySelector('input[name="option"]:checked');
     console.log("Selected option: " + selectedOption.value);
     if (selectedOption) {
-        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications/" + selectedOption.value + "/" + nameToDirectory(name);
+        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications/" + selectedOption.value + "/";
     }
 }
 
 // Function to format the directory name given the sender's name
-function nameToDirectory(name) {
-    return name.toLowerCase().replace(/\s+/g, '_');
+function nameToZip(name) {
+    return name.toLowerCase().replace(/\s+/g, '_') + ".zip";
 }
 
 // Add event listener to download button
@@ -49,8 +49,10 @@ document.getElementById("download-button").addEventListener("click", download);
 async function download() {
     console.log("Download button clicked");
     console.log("Current directory: " + document.getElementById("download-directory").value);
+    console.log("Zip file name: " + nameToZip(name));
 	browser.runtime.sendMessage({
         action: "zipAndDownload",
+        filename: document.getElementById("download-directory").value + nameToZip(name),
     }).then(response => {
         if (response.status === "success") {
             console.log("Dummy download started!");

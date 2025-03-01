@@ -43,14 +43,15 @@ function nameToDirectory(name) {
     return name.toLowerCase().replace(/\s+/g, '_');
 }
 
-// Add event listener to make directory button
-document.getElementById("makedir-button").addEventListener("click", download);
+// Add event listener to download button
+document.getElementById("download-button").addEventListener("click", download);
 
 async function download() {
     console.log("Download button clicked");
     console.log("Current directory: " + document.getElementById("download-directory").value);
-	browser.runtime.sendMessage({ action: "saveFile" })
-    .then(response => {
+	browser.runtime.sendMessage({
+        action: "zipAndDownload",
+    }).then(response => {
         if (response.status === "success") {
             console.log("Dummy download started!");
         } else {

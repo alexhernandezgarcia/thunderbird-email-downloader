@@ -1,5 +1,5 @@
 // Define the saveFile function
-async function saveFile() {
+async function zipAndDownload() {
     try {
         // Create a Blob with some text content
         let fileContent = "Hello, Thunderbird! This is a test file.";

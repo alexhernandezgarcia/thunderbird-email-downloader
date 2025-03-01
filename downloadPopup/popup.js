@@ -17,6 +17,10 @@ console.log("Got message");
 let authorInfo = await messenger.messengerUtilities.parseMailboxString(message.author);
 console.log("Got author info");
 
+let fullMessage = await messenger.messages.getFull(message.id);
+console.log("Got full message");
+let emailContent = getEmailContent(fullMessage)
+
 // Update the HTML fields with the sender email and name.
 let email = authorInfo[0].email;
 document.getElementById("email").textContent = email;
@@ -43,6 +47,28 @@ function nameToDirectory(name) {
     return name.toLowerCase().replace(/\s+/g, '_');
 }
 
+// Function to obtain the email content
+function getEmailContent(message) {
+	console.log("Attempting to extract email content")
+
+    console.log("Email Body:", message);
+    if (!message.parts) {
+        console.log("No content found.");
+        return ""
+    }
+
+    for (let part of message.parts) {
+        if (part.contentType.includes("text/plain")) {
+            console.log("Plain text: ", part.body);
+            return part.body;  // Return plain text body
+        } else if (part.contentType.includes("text/html")) {
+            console.log("HTML: ", part.body);
+            return part.body;  // Return HTML body
+        }
+    }
+    return "No readable content found.";
+}
+
 // Add event listener to download button
 document.getElementById("download-button").addEventListener("click", download);
 
@@ -54,7 +80,8 @@ async function download() {
         path: document.getElementById("download-directory").value,
         filename: nameToDirectory(name),
         name: name,
-        email: email,
+        address: email,
+        email: emailContent,
     }).then(response => {
         if (response.status === "success") {
             console.log("Download started!");

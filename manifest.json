@@ -18,7 +18,7 @@
         "activeTab"
     ],
 	"background": {
-		"page": "background.html"
+		"scripts": ["background.js", "libs/jszip.min.js"]
 	},
     "message_display_action": {
 		"default_popup": "downloadPopup/popup.html",

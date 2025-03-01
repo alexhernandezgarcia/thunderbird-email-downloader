@@ -39,8 +39,8 @@ function updateDownloadDirectory() {
 }
 
 // Function to format the directory name given the sender's name
-function nameToZip(name) {
-    return name.toLowerCase().replace(/\s+/g, '_') + ".zip";
+function nameToDirectory(name) {
+    return name.toLowerCase().replace(/\s+/g, '_');
 }
 
 // Add event listener to download button
@@ -49,11 +49,10 @@ document.getElementById("download-button").addEventListener("click", download);
 async function download() {
     console.log("Download button clicked");
     console.log("Current directory: " + document.getElementById("download-directory").value);
-    console.log("Zip file name: " + nameToZip(name));
 	browser.runtime.sendMessage({
         action: "zipAndDownload",
         path: document.getElementById("download-directory").value,
-        filename: nameToZip(name),
+        filename: nameToDirectory(name),
         name: name,
         email: email,
     }).then(response => {

@@ -4,16 +4,29 @@ async function zipAndDownload(path, filename, name, email) {
     console.log("zipAndDownload() · File name received: " + filename);
     console.log("zipAndDownload() · Name: " + name);
     console.log("zipAndDownload() · Email: " + email);
+
+    // Initialize JSZip
+    const zip = new JSZip();
+
+    // Create multiple text files and add to ZIP
+    zip.folder(filename).file("name.txt", name + "\n");
+    zip.folder(filename).file("email.txt", email + "\n");
+
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    console.log("Zip blob size:", zipBlob.size);
+    if (zipBlob.size === 0) {
+        console.error("Zip blob is empty");
+        return;
+    }
+
     try {
-        // Create a Blob with some text content
-        let fileContent = "Name: " + name + "\nEmail: " + email + "\n";
-        let blob = new Blob([fileContent], { type: "text/plain" });
-        let url = URL.createObjectURL(blob);
+        let zipURL = URL.createObjectURL(zipBlob);
+        console.log("Zip URL created:", zipURL);
 
         // Trigger the download with the option to choose the location
         let downloadId = await browser.downloads.download({
-            url: url,
-            filename: filename,
+            url: zipURL,
+            filename: filename + ".zip",
             saveAs: true  // This will prompt the user to choose where to save the file
         });
 

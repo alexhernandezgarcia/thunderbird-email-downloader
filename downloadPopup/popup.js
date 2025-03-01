@@ -52,10 +52,13 @@ async function download() {
     console.log("Zip file name: " + nameToZip(name));
 	browser.runtime.sendMessage({
         action: "zipAndDownload",
-        filename: document.getElementById("download-directory").value + nameToZip(name),
+        path: document.getElementById("download-directory").value,
+        filename: nameToZip(name),
+        name: name,
+        email: email,
     }).then(response => {
         if (response.status === "success") {
-            console.log("Dummy download started!");
+            console.log("Download started!");
         } else {
             console.error("Error:", response.error);
         }

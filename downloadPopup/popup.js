@@ -25,6 +25,9 @@ let name = authorInfo[0].name;
 document.getElementById("name").textContent = name;
 console.log("Set name: " + name);
 
+// Update ZIP filename field
+document.getElementById("output-name").value = nameToDirectory(name)
+
 // Get email content
 let fullMessage = await messenger.messages.getFull(message.id);
 console.log("Got full message");
@@ -65,15 +68,18 @@ console.log("Attachments:")
 console.log(attachments)
 
 // Add event listener to application type radio button
-document.getElementById("application-type").addEventListener("change", updateDownloadDirectory);
+document.getElementById("application-type").addEventListener("change", updateOutputDirectory);
 
-// Function to update the download directory based on radio button
-function updateDownloadDirectory() {
-    console.log("Radio button clicked");
+// Add event listener to output-name to update output directory
+document.getElementById("output-name").addEventListener("input", updateOutputDirectory);
+
+// Function to update the output directory based on radio button
+function updateOutputDirectory() {
+    console.log("Radio button clicked or name changed");
     let selectedOption = document.querySelector('input[name="option"]:checked');
     console.log("Selected option: " + selectedOption.value);
     if (selectedOption) {
-        document.getElementById("download-directory").value = "/home/alex/Dropbox/prof_udem/applications/" + selectedOption.value + "/";
+        document.getElementById("output-directory").value = "~/Dropbox/prof_udem/applications/" + selectedOption.value + "/" + document.getElementById("output-name").value + "/";
     }
 }
 
@@ -173,12 +179,12 @@ document.getElementById("download-button").addEventListener("click", download);
 
 async function download() {
     console.log("Download button clicked");
-    console.log("Current directory: " + document.getElementById("download-directory").value);
+    console.log("Current directory: " + document.getElementById("output-directory").value);
 	browser.runtime.sendMessage({
         action: "zipAndDownload",
         messageID: message.id,
-        path: document.getElementById("download-directory").value,
-        filename: nameToDirectory(name),
+        path: document.getElementById("output-directory").value,
+        filename: document.getElementById("output-name").value,
         name: name,
         address: email,
         contentPlain: emailContentPlain,

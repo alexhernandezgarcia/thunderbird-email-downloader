@@ -15,6 +15,7 @@ async function zipAndDownload(messageID, path, filename, name, address, emailPla
     zip.folder(filename).file("address.txt", address + "\n");
     zip.folder(filename).file("email.txt", emailPlain + "\n");
     zip.folder(filename).file("email.html", emailHTML + "\n");
+    zip.folder(filename).file("outputdir.txt", path + "\n");
 
     // Add attachments to ZIP file
     if (attachments.length > 0) {

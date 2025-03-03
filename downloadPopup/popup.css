@@ -16,7 +16,11 @@
     gap: 10px;
 }
 
-#download-directory {
+#output-name {
+    width: 80%;
+}
+
+#output-directory {
     width: 100%;
 }
 

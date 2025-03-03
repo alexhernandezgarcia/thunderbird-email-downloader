@@ -132,6 +132,25 @@ function displayAttachments(attachments) {
     }
 }
 
+function updateAttachments(attachments) {
+    const updatedAttachments = [];
+
+    attachments.forEach((attachment, index) => {
+        const checkbox = document.getElementById(`attachment-checkbox-${index}`);
+        const input = document.getElementById(`attachment-name-${index}`);
+
+        if (checkbox && checkbox.checked) {
+            updatedAttachments.push({
+                ...attachment,
+                name: input.value, // Update the name from the input field
+            });
+        }
+    });
+
+    return updatedAttachments;
+}
+
+
 // Add event listener to download button
 document.getElementById("download-button").addEventListener("click", download);
 
@@ -147,7 +166,7 @@ async function download() {
         address: email,
         contentPlain: emailContentPlain,
         contentHTML: emailContentHTML,
-        attachments: attachments,
+        attachments: updateAttachments(attachments,
     }).then(response => {
         if (response.status === "success") {
             console.log("Download started!");

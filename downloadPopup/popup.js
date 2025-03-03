@@ -17,12 +17,6 @@ console.log("Got message");
 let authorInfo = await messenger.messengerUtilities.parseMailboxString(message.author);
 console.log("Got author info");
 
-let fullMessage = await messenger.messages.getFull(message.id);
-console.log("Got full message");
-let [emailContentPlain, emailContentHTML] = getEmailContent(fullMessage)
-console.log("popup.js · Content (plain text): " + emailContentPlain);
-console.log("popup.js · Content (HTML): " + emailContentHTML);
-
 // Update the HTML fields with the sender email and name.
 let email = authorInfo[0].email;
 document.getElementById("email").textContent = email;
@@ -30,6 +24,13 @@ console.log("Set email: " + email);
 let name = authorInfo[0].name;
 document.getElementById("name").textContent = name;
 console.log("Set name: " + name);
+
+// Get email content
+let fullMessage = await messenger.messages.getFull(message.id);
+console.log("Got full message");
+let [emailContentPlain, emailContentHTML] = getEmailContent(fullMessage)
+console.log("popup.js · Content (plain text): " + emailContentPlain);
+console.log("popup.js · Content (HTML): " + emailContentHTML);
 
 // Add event listener to application type radio button
 document.getElementById("application-type").addEventListener("change", updateDownloadDirectory);

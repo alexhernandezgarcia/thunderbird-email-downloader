@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.sw*
+.vscode/
+playground/
+!requirements.txt
+!docs/requirements-docs.txt
+.DS_Store
+docs/_build/

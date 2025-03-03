@@ -19,7 +19,9 @@ console.log("Got author info");
 
 let fullMessage = await messenger.messages.getFull(message.id);
 console.log("Got full message");
-let emailContent = getEmailContent(fullMessage)
+let [emailContentPlain, emailContentHTML] = getEmailContent(fullMessage)
+console.log("popup.js · Content (plain text): " + emailContentPlain);
+console.log("popup.js · Content (HTML): " + emailContentHTML);
 
 // Update the HTML fields with the sender email and name.
 let email = authorInfo[0].email;
@@ -54,19 +56,28 @@ function getEmailContent(message) {
     console.log("Email Body:", message);
     if (!message.parts) {
         console.log("No content found.");
-        return ""
+        return ["", ""]
     }
 
+    let plain = "";
+    let html = "";
     for (let part of message.parts) {
         if (part.contentType.includes("text/plain")) {
             console.log("Plain text: ", part.body);
-            return part.body;  // Return plain text body
+            plain = part.body;
         } else if (part.contentType.includes("text/html")) {
             console.log("HTML: ", part.body);
-            return part.body;  // Return HTML body
+            html = part.body;
+        } else if (part.contentType.includes("multipart/alternative")) {
+            if (!part.parts) {
+                console.log("No content found.");
+                return ["", ""]
+            } else {
+                return getEmailContent(part)
+            }
         }
     }
-    return "No readable content found.";
+    return [plain, html];
 }
 
 // Add event listener to download button
@@ -81,7 +92,8 @@ async function download() {
         filename: nameToDirectory(name),
         name: name,
         address: email,
-        email: emailContent,
+        contentPlain: emailContentPlain,
+        contentHTML: emailContentHTML,
     }).then(response => {
         if (response.status === "success") {
             console.log("Download started!");

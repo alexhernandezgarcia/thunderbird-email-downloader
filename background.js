@@ -1,17 +1,20 @@
 // Define the saveFile function
-async function zipAndDownload(path, filename, name, address, email) {
+async function zipAndDownload(path, filename, name, address, emailPlain, emailHTML) {
     console.log("zipAndDownload() · Path received: " + path);
     console.log("zipAndDownload() · File name received: " + filename);
     console.log("zipAndDownload() · Name: " + name);
     console.log("zipAndDownload() · Email address: " + address);
-    console.log("zipAndDownload() · Content: " + email);
+    console.log("zipAndDownload() · Content (plain text): " + emailPlain);
+    console.log("zipAndDownload() · Content (HTML): " + emailHTML);
 
     // Initialize JSZip
     const zip = new JSZip();
 
     // Create multiple text files and add to ZIP
     zip.folder(filename).file("name.txt", name + "\n");
-    zip.folder(filename).file("email.txt", email + "\n");
+    zip.folder(filename).file("address.txt", address + "\n");
+    zip.folder(filename).file("email.txt", emailPlain + "\n");
+    zip.folder(filename).file("email.html", emailHTML + "\n");
 
     const zipBlob = await zip.generateAsync({ type: "blob" });
     console.log("Zip blob size:", zipBlob.size);
@@ -46,7 +49,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
             message.filename,
             message.name,
             message.address,
-            message.email,
+            message.contentPlain,
+            message.contentHTML,
         ).then(() => {
             sendResponse({ status: "success" });
         }).catch(error => {

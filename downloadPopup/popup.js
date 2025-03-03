@@ -32,6 +32,16 @@ let [emailContentPlain, emailContentHTML] = getEmailContent(fullMessage)
 console.log("popup.js · Content (plain text): " + emailContentPlain);
 console.log("popup.js · Content (HTML): " + emailContentHTML);
 
+// Get attachments
+const attachments = await browser.messages.listAttachments(message.id);
+if (attachments.length == 0) {
+    const hasAttachments = false
+    console.log("No attachments found.");
+} else {
+    const hasAttachments = true
+    console.log("The email contains " + attachments.length + " attachment(s)");
+}
+
 // Add event listener to application type radio button
 document.getElementById("application-type").addEventListener("change", updateDownloadDirectory);
 

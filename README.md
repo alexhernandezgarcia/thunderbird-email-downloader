@@ -13,9 +13,13 @@ The add-on allows the user to select whether the candidate is applying for an in
 Screenshots of the add on:
 
 <p align="center">
-  <img width="400" src="docs/source/screenshots/download_button.png" />
+  <img width="600" src="docs/source/screenshots/download_button.png" />
 </p>
 
 <p align="center">
-  <img width="400" src="docs/source/screenshots/download_pane.png" />
+  <img width="600" src="docs/source/screenshots/download_pane.png" />
+</p>
+
+<p align="center">
+  <img width="600" src="docs/source/screenshots/overall.png" />
 </p>

@@ -84,7 +84,7 @@ function getEmailContent(message) {
         } else if (part.contentType.includes("text/html")) {
             console.log("HTML: ", part.body);
             html = part.body;
-        } else if (part.contentType.includes("multipart/alternative")) {
+        } else if (part.contentType.includes("multipart/alternative") || part.contentType.includes("multipart/mixed")) {
             if (!part.parts) {
                 console.log("No content found.");
                 return ["", ""]

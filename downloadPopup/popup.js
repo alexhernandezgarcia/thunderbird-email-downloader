@@ -29,6 +29,23 @@ console.log("Set name: " + name);
 let fullMessage = await messenger.messages.getFull(message.id);
 console.log("Got full message");
 let [emailContentPlain, emailContentHTML] = getEmailContent(fullMessage)
+const emailContentPlainLength = emailContentPlain.length;
+const emailContentHTMLLength = emailContentHTML.length;
+let content = "";
+if (emailContentPlainLength > 0) {
+    content += "plain text (" + emailContentPlainLength + ")";
+}
+if (emailContentHTMLLength > 0) {
+    if (content.length > 0) {
+        content += " & ";
+    }
+    content += "HTML (" + emailContentHTMLLength + ")";
+}
+if (content.length == 0) {
+    content = "Failed to extract email content";
+}
+document.getElementById("content").textContent = content;
+
 console.log("popup.js · Content (plain text): " + emailContentPlain);
 console.log("popup.js · Content (HTML): " + emailContentHTML);
 

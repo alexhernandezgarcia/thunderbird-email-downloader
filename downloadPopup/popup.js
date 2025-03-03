@@ -36,9 +36,12 @@ console.log("popup.js · Content (HTML): " + emailContentHTML);
 const attachments = await browser.messages.listAttachments(message.id);
 if (attachments.length == 0) {
     const hasAttachments = false
+    document.getElementById("attachments").textContent = "None";
     console.log("No attachments found.");
 } else {
     const hasAttachments = true
+    document.getElementById("attachments").textContent = attachments.length;
+	displayAttachments(attachments)
     console.log("The email contains " + attachments.length + " attachment(s)");
 }
 console.log("Attachments:")
@@ -91,6 +94,42 @@ function getEmailContent(message) {
         }
     }
     return [plain, html];
+}
+
+function displayAttachments(attachments) {
+    const container = document.getElementById("attachments");
+    container.innerHTML = ""; // Clear previous content
+
+    if (attachments.length > 0) {
+        attachments.forEach((attachment, index) => {
+            const div = document.createElement("div");
+            div.classList.add("attachment-item");
+
+            // Create checkbox
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = true; // Checked by default
+            checkbox.id = `attachment-checkbox-${index}`;
+
+            // Create text input for file name
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = attachment.name; // Set default name
+            input.id = `attachment-name-${index}`;
+
+            // Create size label (Convert bytes to MB and round to 1 decimals)
+            const sizeMB = (attachment.size / (1024 * 1024)).toFixed(1);
+            const sizeLabel = document.createElement("span");
+            sizeLabel.textContent = `(${sizeMB} MB)`;
+            sizeLabel.classList.add("attachment-size");
+
+            // Append elements
+            div.appendChild(checkbox);
+            div.appendChild(input);
+			div.appendChild(sizeLabel);
+            container.appendChild(div);
+        });
+    }
 }
 
 // Add event listener to download button

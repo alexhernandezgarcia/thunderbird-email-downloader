@@ -19,3 +19,24 @@
 #download-directory {
     width: 100%;
 }
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+	gap: 10px; /* Adds spacing between elements */
+}
+
+.attachment-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.attachment-item input[type="text"] {
+    width: 80%;
+}
+
+.attachment-size {
+    font-size: 0.9em;
+    color: #666;
+    white-space: nowrap; /* Prevents wrapping */
+}

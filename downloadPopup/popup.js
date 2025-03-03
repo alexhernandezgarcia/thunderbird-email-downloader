@@ -166,7 +166,7 @@ async function download() {
         address: email,
         contentPlain: emailContentPlain,
         contentHTML: emailContentHTML,
-        attachments: updateAttachments(attachments,
+        attachments: updateAttachments(attachments),
     }).then(response => {
         if (response.status === "success") {
             console.log("Download started!");

@@ -41,6 +41,8 @@ if (attachments.length == 0) {
     const hasAttachments = true
     console.log("The email contains " + attachments.length + " attachment(s)");
 }
+console.log("Attachments:")
+console.log(attachments)
 
 // Add event listener to application type radio button
 document.getElementById("application-type").addEventListener("change", updateDownloadDirectory);
@@ -99,12 +101,14 @@ async function download() {
     console.log("Current directory: " + document.getElementById("download-directory").value);
 	browser.runtime.sendMessage({
         action: "zipAndDownload",
+        messageID: message.id,
         path: document.getElementById("download-directory").value,
         filename: nameToDirectory(name),
         name: name,
         address: email,
         contentPlain: emailContentPlain,
         contentHTML: emailContentHTML,
+        attachments: attachments,
     }).then(response => {
         if (response.status === "success") {
             console.log("Download started!");

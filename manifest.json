@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Email info downloader",
     "version": "1.0",
-    "description": "Downloads the email address, email content and attachments of an email into a specified directory of the local computer",
+    "description": "Downloads a ZIP file containing the email address, email content and attachments of the current email.",
     "browser_specific_settings": {
         "gecko": {
             "id": "alexhg@e.email",
@@ -22,12 +22,12 @@
 	},
     "message_display_action": {
 		"default_popup": "downloadPopup/popup.html",
-		"default_title": "Download",
-		"default_icon": "images/internet-32px.png"
+		"default_title": "Download candidate",
+		"default_icon": "images/download-64px.png"
 	},
     "icons": {
-        "64": "images/internet.png",
-        "32": "images/internet-32px.png",
-        "16": "images/internet-16px.png"
+        "64": "images/download-64px.png",
+        "32": "images/download-32px.png",
+        "16": "images/download-16px.png"
     }
 }

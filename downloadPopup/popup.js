@@ -67,6 +67,10 @@ if (attachments.length == 0) {
 console.log("Attachments:")
 console.log(attachments)
 
+// Initialize application type to unknown
+let applicationType = "Unknown"
+console.log("Application type: " + applicationType)
+
 // Add event listener to application type radio button
 document.getElementById("application-type").addEventListener("change", updateOutputDirectory);
 
@@ -76,10 +80,10 @@ document.getElementById("output-name").addEventListener("input", updateOutputDir
 // Function to update the output directory based on radio button
 function updateOutputDirectory() {
     console.log("Radio button clicked or name changed");
-    let selectedOption = document.querySelector('input[name="option"]:checked');
-    console.log("Selected option: " + selectedOption.value);
-    if (selectedOption) {
-        document.getElementById("output-directory").value = "~/Dropbox/prof_udem/applications/" + selectedOption.value + "/" + document.getElementById("output-name").value + "/";
+    applicationType = document.querySelector('input[name="option"]:checked');
+    console.log("Selected option: " + applicationType.value);
+    if (applicationType) {
+        document.getElementById("output-directory").value = "~/Dropbox/prof_udem/applications/" + applicationType.value + "/" + document.getElementById("output-name").value + "/";
     }
 }
 
@@ -187,6 +191,7 @@ async function download() {
         filename: document.getElementById("output-name").value,
         name: name,
         address: email,
+        applicationType: applicationType.value,
         contentPlain: emailContentPlain,
         contentHTML: emailContentHTML,
         attachments: updateAttachments(attachments),

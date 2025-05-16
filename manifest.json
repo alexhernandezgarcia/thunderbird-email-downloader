@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Email info downloader",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Downloads a ZIP file containing the email address, email content and attachments of the current email.",
     "browser_specific_settings": {
         "gecko": {
